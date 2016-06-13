@@ -1,0 +1,42 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-3">
+      <p class="lead">Catalog</p>
+      <div class="list-group">
+        <a href="#" class="list-group-item">Books</a>
+        <a href="#" class="list-group-item">Music</a>
+        <a href="#" class="list-group-item">Video</a>
+      </div>
+    </div>
+    <div class="col-md-9">
+      <div class="row">
+        <% @items.each do |item| %>
+          <div class="col-sm-4 col-lg-4 col-md-4">
+            <div class="thumbnail">
+              <%= image_tag item.image %>
+              <div class="caption">
+                <% if item.respond_to? :price %>
+                  <h4 class="pull-right"><%= number_to_currency(item.price) %></h4>
+                <% end %>
+                <h4><%= item.name %></h4>
+                <p><%= item.description %></p>
+              </div>
+              <% if item.respond_to? :rating %>
+                <div class="ratings">
+                  <p>
+                    <% item.rating.times do %>
+                      <span class="glyphicon glyphicon-star"></span>
+                    <% end %>
+                    <% (5 - item.rating).times do %>
+                      <span class="glyphicon glyphicon-star-empty"></span>
+                    <% end %>
+                  </p>
+                </div>
+              <% end %>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
